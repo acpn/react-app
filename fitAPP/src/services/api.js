@@ -6,7 +6,7 @@ import axios from 'axios';
  ** Simulador IOS:           http://localhost:3333/
  */
 const api = axios.create({
-  baseURL: 'https://desvirtua.herokuapp.com'
+  baseURL: 'api_url'
 });
 
 export default api;
