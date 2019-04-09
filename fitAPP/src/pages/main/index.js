@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as mainActions } from '~/store/ducks/main';
 import { ActivityIndicator } from 'react-native';
+import { createBottomTabNavigator } from 'react-navigation';
 
 import {
   Container,
@@ -44,6 +45,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(mainActions, dispatch);
+
+const TabNavigator = createBottomTabNavigator({
+  Home: Main
+});
 
 export default connect(
   mapStateToProps,

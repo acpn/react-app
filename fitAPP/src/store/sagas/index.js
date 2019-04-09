@@ -17,9 +17,11 @@ function* login(action) {
   const { email, password } = action.payload;
   try {
     // Same as await
-    yield call(api.post, '/session', {
-      email: email,
-      password: password
+    yield call(api.get, '/session', {
+      params: {
+        email: email,
+        password: password
+      }
     });
 
     // Same as dispatch
@@ -37,9 +39,11 @@ function* loadUsers() {
   try {
     const { username, password } = yield select(state => state.login);
 
-    const response = yield call(api.post, '/session', {
-      email: username,
-      password: password
+    const response = yield call(api.get, '/session', {
+      params: {
+        email: username,
+        password: password
+      }
     });
 
     yield put(mainActions.loadUserSuccess(response.data));
