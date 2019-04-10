@@ -13,6 +13,11 @@ import {
   Types as mainTypes
 } from '~/store/ducks/main';
 
+import {
+  Creators as checkActions,
+  Types as checkTypes
+} from '~/store/ducks/checkUser';
+
 function* login(action) {
   const { email, password } = action.payload;
   try {
@@ -26,7 +31,8 @@ function* login(action) {
 
     // Same as dispatch
     yield put(loginActions.loginSuccess(email, password));
-    navigate('Main');
+    yield put(checkActions.userLogged());
+    //navigate('Main'); >> Não funciona mais tem que ver como disparar o index
   } catch (_err) {
     yield put(loginActions.loginFailure());
     //this.setState({
@@ -45,16 +51,25 @@ function* loadUsers() {
         password: password
       }
     });
-
     yield put(mainActions.loadUserSuccess(response.data));
+    
   } catch (err) {
     yield put(mainActions.loadUserFailure());
+  }
+}
+
+function* checkUsers() {
+  try {
+      put(checkActions.userLogged());
+  } catch (err) {
+    yield put(checkActions.checkFailure());
   }
 }
 
 export default function* rootSaga() {
   return yield all([
     takeLatest(loginTypes.REQUEST, login),
-    takeLatest(mainTypes.LOAD_USER_REQUEST, loadUsers)
+    takeLatest(mainTypes.LOAD_USER_REQUEST, loadUsers),
+    takeLatest(checkTypes.LOGGED, checkUsers)
   ]);
 }
