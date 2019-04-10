@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as mainActions } from '~/store/ducks/main';
 import { ActivityIndicator } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
+
+import '~/config/ReactotronConfig';
 
 import {
   Container,
@@ -22,6 +23,7 @@ class Main extends Component {
     const { loadUserRequest } = this.props;
 
     loadUserRequest();
+    console.tron.log('Blabla ' + isLogged);
   }
 
   render() {
@@ -40,15 +42,12 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  dataMain: state.main
+  dataMain: state.main,
+  init: state.init
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(mainActions, dispatch);
-
-const TabNavigator = createBottomTabNavigator({
-  Home: Main
-});
 
 export default connect(
   mapStateToProps,

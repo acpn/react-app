@@ -26,7 +26,7 @@ export default function signin(state = INITIAL_STATE, action) {
         ...state,
         username: action.payload.email,
         password: action.payload.password,
-        erro: false,
+        error: false,
         loading: false
       };
     case Types.FAILURES:
